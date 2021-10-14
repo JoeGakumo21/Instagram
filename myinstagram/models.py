@@ -7,3 +7,6 @@ class Post(models.Model):
     myimage=models.ImageField(blank=True, null=True)
     mycaption=models.TextField()
     created_date=models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.mycaption
