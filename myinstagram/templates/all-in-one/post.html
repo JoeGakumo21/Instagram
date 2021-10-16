@@ -12,15 +12,132 @@
     <link rel="stylesheet" href="static/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+<style>
+    .card{
+        background-color: #fafafa;
+        margin: 0 auto;
+        width: 70%;
+        height: auto;
+        border: .8px solid #ccc;
+        border-radius: 5px;
+        margin-top: 40px;
+    }
+   
+    .card_header{
+        height: auto;
+        width: 100%;
+        background-color: rgb(247, 212, 212);
+        box-shadow: 10px seashell 2px;
+        padding: 10px;
+    }
+    .card_header a{
+        text-decoration: none;
+        color: red;
+    }
+    .rounded-corners{
+        display:  inline-block;
+        background-color: #cddead;
+        height: 40px;
+        width: 40px;
+        padding: 0px;
+        margin:0px;
+        border: 0 px solid #321;
+        border-radius: 50%;
+    }
+    .user-info{
+        display:  inline-block;
+        padding-left: 15px;
+    }
+    .post-name{
+        font-size: 15px;
+        color: black;
+        font-weight: 600;
+        padding: 0;
+        margin: 0;
+        font-style: italic;
+        font-size: 1rem;
+    }
+    .post-location{
+        color: rgb(170, 79, 140);
+        font-size: .8rem;
+        padding: 0;
+        margin: 0;
+    }
+    .post-caption{
+        font-size: 3rem;
+        float: right;
+        display: inline-block;
+        margin: 3px;
+        padding: 5px;
+        color: rgb(19, 16, 16);
+    }
+    .post-image{
+        width: 100%;
+        height: 60%;
+    }
+    .post-engagement{
+        display: inline-block;
+        width: 100%;
+        margin: 5px 0px 0px;
+        padding:  0px 20px;
+    }
+    .post-engagement a{
+        padding: 15px;
+        font-size: 30px;
+        color: rgb(133, 133, 151);
+        font-weight: 500;
+    }
+    .fa-bookmark{
+        float: right;
+        padding: 20px;
+    }
+    .post-likes a{
+        text-decoration:  none;
+        font-size: 20px;
+        font-weight: 600;
+        color: gray;
+        margin: 0px 0px 10px;
+        padding:  0px 20px;
+    }
+    .caption{
+        display: inline-block;
+        width: 100%;
+        padding:  0px 20px;
+    }
+    .caption a{
+        font-size: 10px;
+        font-weight: bold;
+        color: indigo;
+        text-decoration: none;
+        display: inline-block;
+        padding-left:5px ;
+        margin-left:-5px ;
+        padding-right: 5px;
+    }
+    .caption span{
+        font-size: 20px;
+        font-weight: 600;
+        color: #111;
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .time-posted{
+        font-size: 20px;
+        font-weight: 400;
+        color: palevioletred;
+        padding: 0px 20px;
+        
+    }
+</style>
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="">
     {% for post in posts %}
        
       <div class="card">
           <div class="card_header">
-              <div class="profile-image rounded corners">
+              <div class="profile-image rounded-corners">
 
               </div>
               <div class="user-info">
@@ -32,20 +149,20 @@
                 </div>
           </div>
           <div class="post-image">
-              <img src="https://image.shutterstock.com/image-photo/casual-woman-walking-isolated-over-600w-75026902.jpg" alt="my picture">
+              <img src="https://image.shutterstock.com/image-photo/casual-woman-walking-isolated-over-600w-75026902.jpg" alt="my picture" class="image">
           </div>
           <div class="post-engagement">
-            <i class="far fa-heart"></i>
-            <i class="fas fa-comments"></i>
-            <i class="fas fa-paper-plane"></i>
-            <i class="far fa-bookmark"></i>
+            <a href=""><i class="far fa-heart"></i></a>
+            <a href=""> <i class="fas fa-comments"></i><a>
+            <a href=""><i class="fas fa-paper-plane"></i></a>
+             <a href=""> <i class="far fa-bookmark"></i></a>
           </div>
-          <div class="likes">
+          <div class="post-likes">
               <a href="">400 Views</a>
           </div>
           <div class="caption">
               <a href=""><h3>{{post.author}}</h3></a>
-              <span><p>{{post.caption}}</p></span>
+              <span><p>{{post.mycaption}}</p></span>
           </div>
           <div class="time-posted">
               <p>{{post.created_date | timesince}} Ago</p>
