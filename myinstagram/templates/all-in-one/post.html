@@ -149,7 +149,9 @@
                 </div>
           </div>
           <div class="post-image">
-              <img src="https://image.shutterstock.com/image-photo/casual-woman-walking-isolated-over-600w-75026902.jpg" alt="my picture" class="image">
+            {% if post.image %}
+              <img src="{{post.image.url}}" alt="my picture" class="image">
+              {% endif%}
           </div>
           <div class="post-engagement">
             <a href=""><i class="far fa-heart"></i></a>
