@@ -1,15 +1,33 @@
 
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .models import Post
-from .forms import CreateUserForm,PostForm
+from .models import Post,Comment
+from .forms import CreateUserForm,PostForm,CommentForm
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout 
 def post(request):
+
     posts = Post.objects.all().filter(created_date__lte = timezone.now()).order_by('-created_date')
     user = request.user
+    comments=Comment.objects.filter(post=posts).order_by('date')
+
+
+    # comment form
+    if request.method== "POST":
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            comments=form.save(commit=False)
+            comments.posts=posts
+            comments.user=user
+            comments.save()
+            return HttpResponseRedirect(reversed('post',))
+        else:
+            form=CommentForm()
+            
+
     return render(request,'all-in-one/post.html',{'posts':posts,'user':user})
     
    
