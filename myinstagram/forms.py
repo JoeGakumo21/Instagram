@@ -87,7 +87,7 @@ class UserUpdateForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     helper = FormHelper()
     helper.form_method = 'POST'
-    helper.add_input(Submit('post', 'post',css_class = 'btn btn-success'))
+    helper.add_input(Submit('post', 'post',css_class = 'btn btn-small btn-success m-4'))
     class Meta:
         model = Post
         fields = [

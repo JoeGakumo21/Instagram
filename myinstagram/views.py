@@ -82,4 +82,6 @@ def create_post(request):
         return redirect('postview')
     else:
         form = PostForm()
-    return render(request,'all-in-one/newpost.html',{'form':form})   
+    return render(request,'all-in-one/newpost.html',{'form':form})  
+    
+     
