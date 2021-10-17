@@ -1,14 +1,18 @@
 
 from django.shortcuts import render,redirect
 from .models import Post
-from .forms import CreateUserForm
+from .forms import CreateUserForm,PostForm
 from django.contrib.auth.forms import UserCreationForm
+from django.utils import timezone
 
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout 
 def post(request):
-    posts = Post.objects.all().filter
-    return render(request,'all-in-one/post.html',{'posts':posts})
+    posts = Post.objects.all().filter(created_date__lte = timezone.now()).order_by('-created_date')
+    user = request.user
+    return render(request,'all-in-one/post.html',{'posts':posts,'user':user})
+    
+   
 # login code  goes here
 def loginPage(request):
     # form= UserCreationForm()
@@ -33,7 +37,7 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-    
+
 def registerPage(request):
     form= CreateUserForm()
 
@@ -49,23 +53,15 @@ def registerPage(request):
     context={'form':form}
     return render(request,'all-in-one/register.html', context)
 
-def NewPost(request):
-    posts = Post.objects.all()
-
-    if request.method =='POST':
-        data=request.POST
-        image=request.FILES.get('image')
-        if data['posts'] != 'none':
-            posts= Post.objects.get(id=data['category']) 
-        elif data['newpost'] != '':
-            posts,created=Post.objects.get_or_create(name=data['newpost'])
-        else:
-            posts=None    
-        photo=image.objects.create(
-            image=image,
-            mycaption=data['mycaption'],
-            
-        ) 
-        return redirect('post')
-    context={'posts':posts}
-    return render(request, 'all-in-one/newpost.html', context)     
+def create_post(request):
+    current_user = request.user
+    if request.method == "POST":
+        form = PostForm(request.POST,request.FILES)
+        if form.is_valid:
+            post = form.save(commit= False)
+            post.author = current_user
+            post.save()
+        return redirect('postview')
+    else:
+        form = PostForm()
+    return render(request,'all-in-one/newpost.html',{'form':form})   

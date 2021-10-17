@@ -28,7 +28,7 @@
       
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item">
+            <a class="navbar-item" href="{% url 'post' %}" >
                 <i class="material-icons md-dark">home</i>
               Home
             </a>
@@ -50,11 +50,15 @@
                 <i class="material-icons md-dark">face</i>
                 Profile
               </a>
-              <a href="{% url 'newpost' %}" class="navbar-item">
+              <a href="{% url 'postview' %}" class="navbar-item">
                 <i class="material-icons md-dark" style="color: green;">perm_media</i>
                 New Post
               </a>
-            <div class="navbar-item has-dropdown is-hoverable">
+              <a href=""class="navbar-item">
+                <span style="color: lawngreen;font-size:large;font-weight: bold;">Hello, {{request.user}}</span>
+              </a>
+            
+            <div class="navbar-item has-dropdown is-hoverable" style=" float:right;margin-left:20rem">
               <a class="navbar-link">
                 <i class="material-icons md-dark">settings</i>
                 Settings
@@ -75,12 +79,11 @@
                   Report an Issue
                 </a>
                 <hr class="navbar-divider">
-                <a class="navbar-item">
+                <a href="{% url 'logout' %}" class="navbar-item">
                     <i class="material-icons md-dark">logout</i>
                   Logout
                 </a>
               </div>
-            </div>
           </div>      
         </div>
       </nav>
