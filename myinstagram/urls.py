@@ -7,5 +7,7 @@ urlpatterns = [
    path('logout/', views.logoutUser, name='logout'),
    path('', views.post, name='post'),
    path('new/', views.create_post, name='postview'),
+   path('comments/<int:pk>/', views.add_comment, name='comments'),
+   path('like/', views.like_post, name='like-post'), 
 
 ]

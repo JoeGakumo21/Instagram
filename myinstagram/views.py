@@ -1,31 +1,18 @@
 
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .models import Post,Comment
+from .models import Post,Comment,Like
 from .forms import CreateUserForm,PostForm,CommentForm
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
-
+from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout 
 def post(request):
 
     posts = Post.objects.all().filter(created_date__lte = timezone.now()).order_by('-created_date')
     user = request.user
-    comments=Comment.objects.filter(post=posts).order_by('date')
-
-
-    # comment form
-    if request.method== "POST":
-        form=CommentForm(request.POST)
-        if form.is_valid():
-            comments=form.save(commit=False)
-            comments.posts=posts
-            comments.user=user
-            comments.save()
-            return HttpResponseRedirect(reversed('post',))
-        else:
-            form=CommentForm()
+    
             
 
     return render(request,'all-in-one/post.html',{'posts':posts,'user':user})
@@ -83,5 +70,55 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request,'all-in-one/newpost.html',{'form':form})  
-    
-     
+
+
+  #likes goes here 
+def like_post(request):
+    user = request.user
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        phone_post = Post.objects.get(id= post_id)
+
+        if user in phone_post.liked.all():
+            phone_post.liked.remove(user)
+        else:
+            phone_post.liked.add(user)
+
+        like, created = Like.objects.get_or_create(user=user, post_id = post_id)
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+
+        like.save()
+
+    return redirect('post')
+# comments
+def add_comment(request,pk):
+    post = Post.objects.get(pk = pk)
+    form = CommentForm(request.POST,instance=post)
+    if request.method == "POST":
+        if form.is_valid():
+            name = request.user.username
+            body = form.cleaned_data['body']
+            comment_content = Comment(post=post,name=name ,body=body,date=datetime.now())
+
+            comment_content.save()
+            return redirect('post')
+        else:
+            print('form is invalid')
+
+    else:
+        form = CommentForm
+
+    context = {
+        'form':form
+    }
+    return render(request,'all-in-one/comments.html',context)
+
+
+
+
+
+

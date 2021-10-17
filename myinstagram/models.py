@@ -8,17 +8,24 @@ class Post(models.Model):
     image=models.ImageField(blank=True, null=True)
     mycaption=models.TextField()
     created_date=models.DateTimeField(default=timezone.now)
+    liked = models.ManyToManyField(User, default=None,blank= True,related_name='liked')
 
     def __str__(self):
         return self.mycaption
 
+    @property
+    def num_likes(self):
+        return self.liked.all().count    
+
+        
+
 class Comment(models.Model):
     post=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=500)
     body=models.TextField()
     date= models.DateTimeField(auto_now_add=True)
 
-    
+
 
 LIKE_CHOICES = (
     ('Like','Like'),

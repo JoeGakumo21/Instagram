@@ -157,21 +157,29 @@
           </div>
      
           <div class="post-engagement">
-            <a href=""><i class="far fa-heart"></i></a>
-            <a href=""> <i class="fas fa-comments"></i>
+
+
+            
+                
+                <form action="{% url 'like-post' %}" method="POST" >
+                    {% csrf_token %}
+                    <input type="hidden" name="post_id" value="{{post.id}}">
+                    {% if user not in post.liked.all %}
+                    <a href=""><i class="far fa-heart text-success"> like</i></a>
+                    {% else %}
+                    <a href=""><i class="far fa-heart text-danger">unlike</i></a>
+                    {%endif%}
+                  </form>
+                  <strong>{{post.liked.all.count}}</strong>
+           
+            <a  href="{% url 'comments' post.id %}">Comments <i class="fas fa-comments"></i>
                 
                 
                 <a>
             <a href=""><i class="fas fa-paper-plane"></i></a>
              <a href=""> <i class="far fa-bookmark"></i></a>
           </div>
-          {% for comment in comments%}
-          <div class="post-image" style="height: 300px;">
-            {% if comment.image %}
-              <img src="{{comment.image.url}}" alt="my picture" class="image" style="width: 50%;">
-              {% endif%}
-          </div>
-          {%endfor%}
+          
           <div class="post-likes">
               <a href="">400 Views</a>
           </div>
@@ -182,25 +190,21 @@
           <div class="time-posted">
               <p>{{post.created_date | timesince}} Ago</p>
           </div>
-          <div class="container">
-            <form action="" method="POST">
-                {%csrf_token%}
-                <div class="col">
-                    <div class="profile-image rounded-corners">
-                        {% if post.image %}
-                        <img src="{{post.image.url}}" alt="my picture" class="image" style="border-radius: 50%;">
-                        {% endif%}
-                      </div>
-                    <p class="control">
-                        <div class="col">
-                            {{form.body}}
-                        </div>
-                       
-                        <button  type="submit" name="action"class="btn btn-small btn-success">Post Comment</button>
-                    </p>
-                </div>
-            </form>
-          </div>
+          
+              {% if not post.comments.all %}
+                <p>No Comments Yet... </p>
+
+                {% else %}
+
+                {% for comment in post.comments.all %}
+
+                <h2>{{comment.name}}</h2>
+                <p>{{comment.body}}</p>
+                <p>{{comment.date}}</p>
+                {%endfor%}
+
+                {%endif%}
+                <a href="{% url 'comments' post.id %}" class="btn btn-success">Comment</a>
       </div>
       
     {% endfor %}
