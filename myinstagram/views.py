@@ -1,25 +1,26 @@
 
 from django.shortcuts import render,redirect
 from .models import Post
+from .forms import CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
 def post(request):
     posts = Post.objects.all().filter
     return render(request,'all-in-one/post.html',{'posts':posts})
 # login code  goes here
 def loginPage(request):
-    form= UserCreationForm()
-    context={'form':form}
+    # form= UserCreationForm()
+    context={}
     return render(request,'all-in-one/login.html', context)
 
 def registerPage(request):
-    form= UserCreationForm()
+    form= CreateUserForm()
 
     if request.method=='POST':
         form=UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
 
-            
+
     context={'form':form}
     return render(request,'all-in-one/register.html', context)
 

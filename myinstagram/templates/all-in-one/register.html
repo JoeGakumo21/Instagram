@@ -1,6 +1,8 @@
 <h2>Am register</h2>
 <form action="" method="POST">
-    {%csrf_token%}
-    {{form.as_p}}
+    {% csrf_token %}
+    {% for field in form %}
+    {{field}}
+    {% endfor%}
     <input type="submit" name="create-user">
 </form>
