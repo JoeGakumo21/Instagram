@@ -22,12 +22,18 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             return redirect('post')
-            
+        else:
+            messages.warning(request,'Username Or Password is incorrect') 
+    
 
 
     context={}
     return render(request,'all-in-one/login.html', context)
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
 
+    
 def registerPage(request):
     form= CreateUserForm()
 
