@@ -73,7 +73,7 @@
     }
     .post-image{
         width: 200%;
-        height: 10% !important;
+        height: 30% !important;
     }
     .post-engagement{
         display: inline-block;
@@ -82,7 +82,7 @@
         padding:  0px 20px;
     }
     .post-engagement a{
-        padding: 15px;
+        padding:0px;
         font-size: 30px;
         color: rgb(133, 133, 151);
         font-weight: 500;
@@ -128,12 +128,18 @@
         padding: 0px 20px;
         
     }
+    body{
+        background-color: #cddead;
+    }
+    #image{
+        height:500px;
+        object-fit:cover;
+        
+    }
 </style>
-<body>
+<body style="color: rgb(26, 23, 23);">
     <div class="container">
-        <div class="row">
-            <div class="">
-    {% for post in posts %}
+                {% for post in posts %}
        
       <div class="card">
           <div class="card_header">
@@ -152,59 +158,71 @@
           </div>
           <div class="post-image" style="height: 300px;">
             {% if post.image %}
-              <img src="{{post.image.url}}" alt="my picture" class="image" style="width: 50%;">
+              <img src="{{post.image.url}}" alt="my picture" class="image" id="image">
               {% endif%}
           </div>
      
           <div class="post-engagement">
 
+            <div class="col">
+                <div class="row">
+                    <div class="col-md-4">                
+                        <form action="{% url 'like-post' %}" method="POST" >
+                            {% csrf_token %}
+                            <input type="hidden" name="post_id" value="{{post.id}}">
+                            {% if user not in post.liked.all %}
+                            <!-- <button class="button is-success" >like</button> -->
+                            <a href=""><i class="far fa-heart text-success"> like</i></a>
+                            {% else %}
+                            <a href=""><i class="fas fa-heart-broken">unlike</i></a>
+                            {%endif%}
+                        </form>
+                        <strong>{{post.liked.all.count}}</strong>
+                    </div>
+                    <div class="col-md-5">                         
+                       <a  href="{% url 'comments' post.id %}" style="text-decoration: none;">Comments Here<i class="fas fa-comments"></i><a>
+                    </div>
+                </div>
+            </div>            
+          </div>      
+          <div class="container">
+             <div class="row">
+                 <div class="col">
+                    
+                        <div class="caption">
+                            <div class="profile-image rounded-corners">
+                                {% if post.image %}
+                                <img src="{{post.image.url}}" alt="my picture" class="image" style="border-radius: 50%;">
+                                {% endif%}
+                              </div>
+                            <a href="{% url 'post' %}"><h3>{{post.author}}</h3></a>
+                            <span style="color: black;font-family: 'Courier New', Courier, monospace; font-style: italic;"><p>{{post.mycaption}}</p></span>
+                            <div class="time-posted">
+                                <hr>
+                             
+                                    <p><span style=" color:black">Posted on :</span>{{post.created_date | timesince}} Ago</p>
 
-            
-                
-                <form action="{% url 'like-post' %}" method="POST" >
-                    {% csrf_token %}
-                    <input type="hidden" name="post_id" value="{{post.id}}">
-                    {% if user not in post.liked.all %}
-                    <button class="button is-success" >like</button>
-                    <a href=""><i class="far fa-heart text-success"> like</i></a>
-                    {% else %}
-                    <a href=""><i class="fas fa-heart-broken">unlike</i></a>
-                    {%endif%}
-                  </form>
-                  <strong>{{post.liked.all.count}}</strong>
-           
-            <a  href="{% url 'comments' post.id %}">Comments <i class="fas fa-comments"></i>
-                
-                
-                <a>
-            <a href=""><i class="fas fa-paper-plane"></i></a>
-             <a href=""> <i class="far fa-bookmark"></i></a>
+                                {% if not post.comments.all %}
+                                <p>No Comments Yet... </p>
+
+                                {% else %}
+
+                                {% for comment in post.comments.all %}                               
+
+                                <h2>{{comment.author}}</h2>
+                                <p><span style=" color:black">Comment :</span>{{comment.body}}</p>
+                                <p><span style=" color:purple"></span>{{comment.date}}</p>
+                                {%endfor%}
+
+                                {%endif%}
+                             
+                              
+                            </div>
+                        </div>
+                   
+                 </div>
+             </div>
           </div>
-          
-          <div class="post-likes">
-              <a href="">400 Views</a>
-          </div>
-          <div class="caption">
-              <a href=""><h3>{{post.author}}</h3></a>
-              <span><p>{{post.mycaption}}</p></span>
-          </div>
-          <div class="time-posted">
-              <p>{{post.created_date | timesince}} Ago</p>
-          </div>
-          
-              {% if not post.comments.all %}
-                <p>No Comments Yet... </p>
-
-                {% else %}
-
-                {% for comment in post.comments.all %}
-
-                <h2>{{comment.name}}</h2>
-                <p>{{comment.body}}</p>
-                <p>{{comment.date}}</p>
-                {%endfor%}
-
-                {%endif%}
                 <!-- <a href="{% url 'comments' post.id %}" class="btn btn-success">Comment</a> -->
       </div>
       

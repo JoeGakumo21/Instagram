@@ -12,10 +12,28 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
     </head>
+    <style>
+      .navbar{
+        background-color: cadetblue;
+        border-radius: 5px;
+      }
+      body{
+        background-color: #cddead;
+      }
+      .navbar-start a{
+        text-decoration: none;
+      }
+      a:hover{
+        border-radius: 4px;
+        color: purple;
+      }
+    </style>
   <body>
+    
+    <div class="container m-2">
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="">
+          <a class="navbar-item" href="" style="margin-left: 5px;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" width="40" height="40">
           </a>
       
@@ -60,9 +78,12 @@
             
               <form class="navbar-form" role="search"  action="{% url 'search_results' %}">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search" name="author">
+                  <input type="text" class="form-control" placeholder="Search here" name="author">
                   <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="bi bi-search"></i></i></button>
+                    <button class="btn btn-danger" type="submit"><span class="material-icons">
+                      search
+                      </span>
+                      </button>
                   </div>
                 </div>
               </form>
@@ -75,5 +96,33 @@
           </div>      
         </div>
       </nav>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      // Get all "navbar-burger" elements
+      var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+      // Check if there are any navbar burgers
+      if ($navbarBurgers.length > 0) {
+    
+        // Add a click event on each of them
+        $navbarBurgers.forEach(function ($el) {
+          $el.addEventListener('click', function () {
+    
+            // Get the target from the "data-target" attribute
+            var target = $el.dataset.target;
+            var $target = document.getElementById(target);
+    
+            // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+            $el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+    
+          });
+        });
+      }
+    
+    });
+</script>
   </body>
 </html>
