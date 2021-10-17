@@ -58,32 +58,20 @@
                 <span style="color: lawngreen;font-size:large;font-weight: bold;">Hello, {{request.user}}</span>
               </a>
             
-            <div class="navbar-item has-dropdown is-hoverable" style=" float:right;margin-left:20rem">
-              <a class="navbar-link">
-                <i class="material-icons md-dark">settings</i>
-                Settings
-              </a>
-      
-              <div class="navbar-dropdown">
-                <a class="navbar-item">
-                    
-                  Change Password
-                  <!-- <i class="material-icons md-dark">padlock</i> -->
-                </a>
-                <a class="navbar-item">
-
-                  Contact
-                  <!-- <i class="material-icons md-dark">phone</i> -->
-                </a>
-                <a class="navbar-item">
-                  Report an Issue
-                </a>
-                <hr class="navbar-divider">
+              <form class="navbar-form" role="search"  action="{% url 'search_results' %}">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search" name="author">
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="bi bi-search"></i></i></button>
+                  </div>
+                </div>
+              </form>
+            
                 <a href="{% url 'logout' %}" class="navbar-item">
                     <i class="material-icons md-dark">logout</i>
                   Logout
                 </a>
-              </div>
+              
           </div>      
         </div>
       </nav>

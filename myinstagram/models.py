@@ -9,6 +9,7 @@ class Post(models.Model):
     mycaption=models.TextField()
     created_date=models.DateTimeField(default=timezone.now)
     liked = models.ManyToManyField(User, default=None,blank= True,related_name='liked')
+    
 
     def __str__(self):
         return self.mycaption
@@ -16,7 +17,10 @@ class Post(models.Model):
     @property
     def num_likes(self):
         return self.liked.all().count    
-
+    @classmethod
+    def search_category(cls,search):
+            searches = cls.objects.filter(author__username__icontains = search)
+            return searches        
         
 
 class Comment(models.Model):
@@ -40,3 +44,5 @@ class Like(models.Model):
 
     def __str__(self):
         return str(self.post)    
+
+   

@@ -119,6 +119,15 @@ def add_comment(request,pk):
 
 
 
+def search_results(request):
+    if 'author' in request.GET and request.GET["author"]:
+        search_term = request.GET.get("author")
+        searched_articles = Post.search_category(search_term)
+        message = f"{search_term}"
+        return render(request, 'search.html',{"message":message,"categories": searched_articles})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
 
 
 
