@@ -3,6 +3,9 @@ from django.shortcuts import render,redirect
 from .models import Post
 from .forms import CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
+
+from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout 
 def post(request):
     posts = Post.objects.all().filter
     return render(request,'all-in-one/post.html',{'posts':posts})
@@ -19,6 +22,9 @@ def registerPage(request):
         form=UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            holdeofaccount=form.cleaned_data.get('username')
+            messages.success(request,'Account was created for'+ holdeofaccount)
+            return redirect('login')
 
 
     context={'form':form}
