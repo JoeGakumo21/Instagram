@@ -12,6 +12,19 @@ def post(request):
 # login code  goes here
 def loginPage(request):
     # form= UserCreationForm()
+    if request.method == "POST":
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+
+
+        user=authenticate(request,username=username, password=password )
+        
+        if user is not None:
+            login(request, user)
+            return redirect('post')
+            
+
+
     context={}
     return render(request,'all-in-one/login.html', context)
 
