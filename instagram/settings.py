@@ -55,6 +55,17 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+# DATABASES = {
+#        'default': {
+#            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#            'NAME': 'joeinstagram',
+#            'USER': 'moringa',
+#            'PASSWORD': 'Access',
+#         #    'HOST': '127.0.0.1',
+#         #    'PORT': '',
+#        }
+       
+#    }
 ALLOWED_HOSTS = []
 
 
@@ -150,7 +161,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL='/media/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
 
