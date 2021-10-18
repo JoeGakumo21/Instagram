@@ -37,7 +37,7 @@ This is a Instagram clone web application to showcase beautiful pictures where U
 - PostgreSQL
 
 ### live link
-<a href="https://instagramjoe.herokuapp.com/">My Instagram clone site</a>
+<a href="https://instagramjoe.herokuapp.com/login/">My Instagram clone site</a>
 ## Know bugs
 there are no bugs so far
 # LICENCE 
