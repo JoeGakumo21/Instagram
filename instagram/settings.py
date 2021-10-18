@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-# from pathlib import Path
+from pathlib import Path
 import os
 import django_heroku
 import dj_database_url
@@ -35,10 +35,10 @@ if config('MODE')=="dev":
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': config('joeinstagram'),
-           'USER': config('moringa'),
-           'PASSWORD': config('Access'),
-           'HOST': config('127.0.0.1'),
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
            'PORT': '',
        }
        
