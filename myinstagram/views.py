@@ -66,7 +66,7 @@ def create_post(request):
             post = form.save(commit= False)
             post.author = current_user
             post.save()
-        return redirect('postview')
+        return redirect('post')
     else:
         form = PostForm()
     return render(request,'all-in-one/newpost.html',{'form':form})  
