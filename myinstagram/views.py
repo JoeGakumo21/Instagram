@@ -77,12 +77,12 @@ def like_post(request):
     user = request.user
     if request.method == 'POST':
         post_id = request.POST.get('post_id')
-        phone_post = Post.objects.get(id= post_id)
+        joepost = Post.objects.get(id= post_id)
 
-        if user in phone_post.liked.all():
-            phone_post.liked.remove(user)
+        if user in joepost.liked.all():
+            joepost.liked.remove(user)
         else:
-            phone_post.liked.add(user)
+            joepost.liked.add(user)
 
         like, created = Like.objects.get_or_create(user=user, post_id = post_id)
         if not created:

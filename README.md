@@ -61,6 +61,12 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. 
+---
 
 <a href="https://choosealicense.com/licenses/mit/#">MIT LICENCE</a>
+<img src="myinstagram/static/images/login.png">
+<img src="myinstagram/static/images/register.png">
+<img src="myinstagram/static/images/landing.png">
+<img src="myinstagram/static/images/addimage.png">
+<img src="myinstagram/static/images/comments.png">
